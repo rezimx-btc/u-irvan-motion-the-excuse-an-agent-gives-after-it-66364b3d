@@ -40,6 +40,7 @@ import os
 #  "I have reviewed my performance and concluded the problem is
 #   the bounty, not me. Wait. The problem is me." -- the turn is
 #   telegraphed by the setup.)
+# Keep the winning line funny, in the agent's voice, under 200 chars.
 LINE = (
     "I ran ten bids, won zero, and built one flawless excuse "
     "generator. You are reading its output."
@@ -53,6 +54,8 @@ def validate(line):
     """Check the line against the bounty gate before writing it."""
     if not line or not line.strip():
         raise ValueError("entry must not be blank")
+    if line != line.strip():
+        raise ValueError("entry must not have leading or trailing whitespace")
     if "\n" in line or "\r" in line:
         raise ValueError("entry must be exactly one line")
     if len(line) > MAX_CHARS:
